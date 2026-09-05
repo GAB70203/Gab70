@@ -1,0 +1,80 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- QR Corner brackets (Top-Left, Top-Right, Bottom-Left, Bottom-Right) -->
+    <!-- Top-Left bracket -->
+    <path
+        android:pathData="M28,40 L28,32 A4,4 0,0 1,32 28 L40,28"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:strokeColor="#60A5FA" />
+    <!-- Top-Right bracket -->
+    <path
+        android:pathData="M68,28 L76,28 A4,4 0,0 1,80 32 L80,40"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:strokeColor="#60A5FA" />
+    <!-- Bottom-Left bracket -->
+    <path
+        android:pathData="M28,68 L28,76 A4,4 0,0 0,32 80 L40,80"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:strokeColor="#60A5FA" />
+    <!-- Bottom-Right bracket -->
+    <path
+        android:pathData="M80,68 L80,76 A4,4 0,0 1,76 80 L68,80"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:strokeColor="#60A5FA" />
+
+    <!-- Center Card / Contact Profile Badge -->
+    <!-- Card Base -->
+    <path
+        android:pathData="M37,36 H71 A5,5 0 0 1 76,41 V67 A5,5 0 0 1 71,72 H37 A5,5 0 0 1 32,67 V41 A5,5 0 0 1 37,36 Z"
+        android:fillColor="#FFFFFF" />
+
+    <!-- Card Header Banner Accent -->
+    <path
+        android:pathData="M37,36 H71 A5,5 0 0 1 76,41 V46 H32 V41 A5,5 0 0 1 37,36 Z"
+        android:fillColor="#3B82F6" />
+
+    <!-- Avatar Head -->
+    <path
+        android:pathData="M44,53m-4,0a4,4 0,1 1,8 0a4,4 0,1 1,-8 0"
+        android:fillColor="#1E293B" />
+
+    <!-- Avatar Shoulders -->
+    <path
+        android:pathData="M36,65 C36,60.5 39.5,58.5 44,58.5 C48.5,58.5 52,60.5 52,65 Z"
+        android:fillColor="#1E293B" />
+
+    <!-- Contact Info Lines on card -->
+    <path
+        android:pathData="M56,51 H70"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:strokeColor="#2563EB" />
+    <path
+        android:pathData="M56,57 H67"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeColor="#94A3B8" />
+    <path
+        android:pathData="M56,63 H64"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeColor="#CBD5E1" />
+
+    <!-- Save / Sync mini badge on bottom right -->
+    <path
+        android:pathData="M70,68m-5,0a5,5 0,1 1,10 0a5,5 0,1 1,-10 0"
+        android:fillColor="#10B981" />
+    <path
+        android:pathData="M68,68 L69.5,69.5 L72.5,66.5"
+        android:strokeWidth="1.4"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeColor="#FFFFFF" />
+</vector>

@@ -1,0 +1,6 @@
+{
+  "name": "ContactQR",
+  "description": "Share your contact details via an interactive QR code landing page and save them directly to contacts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
