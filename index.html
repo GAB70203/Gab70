@@ -254,14 +254,25 @@
       downloadVCard();
       return;
     }
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      try {
-        await navigator.share({ files: [file], title: 'Gabriele Marzano' });
-      } catch (err) {
-        // Sharing cancelled or failed — nothing to do.
-      }
-    } else {
+
+    var canUseShare = false;
+    try {
+      canUseShare = !!(navigator.canShare && navigator.canShare({ files: [file] }));
+    } catch (err) {
+      canUseShare = false;
+    }
+
+    if (!canUseShare) {
       downloadVCard();
+      return;
+    }
+
+    try {
+      await navigator.share({ files: [file], title: 'Gabriele Marzano' });
+    } catch (err) {
+      if (!err || err.name !== 'AbortError') {
+        downloadVCard();
+      }
     }
   });
 </script>
