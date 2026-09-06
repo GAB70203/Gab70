@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gabriele Marzano — Contatti</title>
+<title>Gabriele Marzano — Contact</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
@@ -127,22 +127,38 @@
     border-bottom-color: var(--accent);
   }
 
+  .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
   .cta {
     display: block;
     width: 100%;
     padding: 14px 20px;
-    background: var(--accent);
-    color: var(--paper);
-    border: none;
     border-radius: 6px;
     font-family: 'IBM Plex Sans', sans-serif;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.15s ease;
+    transition: background 0.15s ease, color 0.15s ease;
+    border: 1.5px solid var(--accent);
   }
 
-  .cta:hover { background: var(--accent-dark); }
+  .cta-primary {
+    background: var(--accent);
+    color: var(--paper);
+  }
+
+  .cta-primary:hover { background: var(--accent-dark); }
+
+  .cta-secondary {
+    background: transparent;
+    color: var(--accent);
+  }
+
+  .cta-secondary:hover { background: rgba(47, 93, 80, 0.08); }
 
   .cta:focus-visible {
     outline: 2px solid var(--ink);
@@ -168,36 +184,39 @@
 
   <ul class="contacts">
     <li>
-      <span class="label">Telefono</span>
+      <span class="label">Telephone</span>
       <a class="value" href="tel:+393358285087">+39 335 828 5087</a>
     </li>
     <li>
-      <span class="label">Email personale</span>
-      <a class="value" href="mailto:gabrielemarzano01@gmail.com">gabrielemarzano01@gmail.com</a>
-    </li>
-    <li>
-      <span class="label">Email di lavoro</span>
+      <span class="label">Work email</span>
       <a class="value" href="mailto:gabriele.marzano@regione.emilia-romagna.it">gabriele.marzano@regione.emilia-romagna.it</a>
     </li>
     <li>
-      <span class="label">LinkedIn</span>
+      <span class="label">Personal email</span>
+      <a class="value" href="mailto:gabrielemarzano01@gmail.com">gabrielemarzano01@gmail.com</a>
+    </li>
+    <li>
+      <span class="label">LinkedIn account</span>
       <a class="value" href="https://www.linkedin.com/in/gabrielemarzano" target="_blank" rel="noopener">linkedin.com/in/gabrielemarzano</a>
     </li>
     <li>
-      <span class="label">Indirizzo</span>
-      <a class="value" href="https://maps.google.com/?q=Via+Aldo+Moro+44,+40138+Bologna" target="_blank" rel="noopener">Via Aldo Moro 44, 40138 Bologna</a>
+      <span class="label">Work Address</span>
+      <a class="value" href="https://maps.google.com/?q=Viale+Aldo+Moro+44,+40138+Bologna" target="_blank" rel="noopener">Viale Aldo Moro 44, 40138 Bologna</a>
     </li>
   </ul>
 
   <hr class="rule">
 
-  <button class="cta" id="saveContact" type="button">Salva nella rubrica</button>
-  <p class="hint">Scarica il file e aprilo per aggiungere il contatto</p>
+  <div class="actions">
+    <button class="cta cta-primary" id="saveContact" type="button">Save in your contacts</button>
+    <button class="cta cta-secondary" id="shareContact" type="button">Share as vCard</button>
+  </div>
+  <p class="hint">Save downloads the vCard. Share sends it through another app.</p>
 </main>
 
 <script>
-  document.getElementById('saveContact').addEventListener('click', function () {
-    var vcard = [
+  function buildVCard() {
+    return [
       'BEGIN:VCARD',
       'VERSION:3.0',
       'N:Marzano;Gabriele;;;',
@@ -205,13 +224,16 @@
       'ORG:Regione Emilia-Romagna',
       'TITLE:Policy Manager',
       'TEL;TYPE=CELL:+39 335 828 5087',
-      'EMAIL;TYPE=INTERNET,HOME:gabrielemarzano01@gmail.com',
       'EMAIL;TYPE=INTERNET,WORK:gabriele.marzano@regione.emilia-romagna.it',
+      'EMAIL;TYPE=INTERNET,HOME:gabrielemarzano01@gmail.com',
       'URL:https://www.linkedin.com/in/gabrielemarzano',
-      'ADR;TYPE=WORK:;;Via Aldo Moro 44;Bologna;;40138;Italia',
+      'ADR;TYPE=WORK:;;Viale Aldo Moro 44;Bologna;;40138;Italy',
       'END:VCARD'
     ].join('\r\n');
-    var blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
+  }
+
+  function downloadVCard() {
+    var blob = new Blob([buildVCard()], { type: 'text/vcard;charset=utf-8' });
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
     a.href = url;
@@ -220,6 +242,27 @@
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+  }
+
+  document.getElementById('saveContact').addEventListener('click', downloadVCard);
+
+  document.getElementById('shareContact').addEventListener('click', async function () {
+    var file;
+    try {
+      file = new File([buildVCard()], 'Gabriele-Marzano.vcf', { type: 'text/vcard' });
+    } catch (err) {
+      downloadVCard();
+      return;
+    }
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try {
+        await navigator.share({ files: [file], title: 'Gabriele Marzano' });
+      } catch (err) {
+        // Sharing cancelled or failed — nothing to do.
+      }
+    } else {
+      downloadVCard();
+    }
   });
 </script>
 </body>
