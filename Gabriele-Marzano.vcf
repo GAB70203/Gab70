@@ -1,0 +1,12 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Marzano;Gabriele;;;
+FN:Gabriele Marzano
+ORG:Regione Emilia-Romagna
+TITLE:Policy Manager
+TEL;TYPE=CELL:+39 335 828 5087
+EMAIL;TYPE=INTERNET,WORK:gabriele.marzano@regione.emilia-romagna.it
+EMAIL;TYPE=INTERNET,HOME:gabrielemarzano01@gmail.com
+URL:https://www.linkedin.com/in/gabrielemarzano
+ADR;TYPE=WORK:;;Viale Aldo Moro 44;Bologna;;40138;Italy
+END:VCARD
